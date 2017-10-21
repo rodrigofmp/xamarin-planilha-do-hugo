@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PlanilhaDoHugo.ViewModels;
 using Xamarin.Forms;
 
 namespace PlanilhaDoHugo
@@ -12,6 +8,9 @@ namespace PlanilhaDoHugo
 		public MainPage()
 		{
 			InitializeComponent();
-		}
+
+            BindingContext = new MainPageViewModel();
+
+        }
 	}
 }

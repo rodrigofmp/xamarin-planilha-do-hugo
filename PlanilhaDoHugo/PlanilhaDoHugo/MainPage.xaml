@@ -4,8 +4,38 @@
              xmlns:local="clr-namespace:PlanilhaDoHugo"
              x:Class="PlanilhaDoHugo.MainPage">
 
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <StackLayout>
+        <Entry Text="{Binding ArrivalTime}"  Keyboard="Numeric" Placeholder="Hora de Chegada"/>
+        <Entry Text="{Binding LunchBreakTime}"  Keyboard="Numeric" Placeholder="Saída para Almoço"/>
+        <Entry Text="{Binding LunchReturnTime}"  Keyboard="Numeric" Placeholder="Retorno do Almoço"/>
+        <Label Text="{Binding GoHomeTime}"/>
+        <ListView ItemsSource="{Binding EntryList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding StartTime}"/>
+                            <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding EndTime}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="{Binding Task}"/>
+                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Description}"/>
+                            <Label Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="1" Text="{Binding Registered}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 
 </ContentPage>
