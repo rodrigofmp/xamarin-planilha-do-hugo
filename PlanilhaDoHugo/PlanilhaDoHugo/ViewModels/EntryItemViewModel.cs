@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace PlanilhaDoHugo.ViewModels
 {
@@ -12,6 +13,7 @@ namespace PlanilhaDoHugo.ViewModels
         private string _description;
         private string _hoursWorked;
         private bool _registered;
+        private bool _endTime_IsEnabled;
 
         public string StartTime {
             get
@@ -32,19 +34,23 @@ namespace PlanilhaDoHugo.ViewModels
             }
             set
             {
-                // Allows to edit endTime only if next endTime is not edited
-                if (NextEntryItemViewModel == null || !NextEntryItemViewModel.IsEndTimeDefined())
-                { 
-                    _endTime = value;
-                    OnPropertyChanged(nameof(EndTime));
-                    CalculateWorkedHours();
+                _endTime = value;
+                OnPropertyChanged(nameof(EndTime));
+                CalculateWorkedHours();
                     
-                    // endTime was definied and there is not next entry item
-                    if (IsEndTimeDefined() && NextEntryItemViewModel == null)
-                    {
-                        NextEntryItemViewModel = MainPageViewModel?.AddEntryItemFromChild(EndTime);
-                    }
+                // endTime was definied and there is not next entry item
+                if (IsEndTimeDefined() && NextEntryItemViewModel == null)
+                {
+                    NextEntryItemViewModel = MainPageViewModel?.AddEntryItemFromChild(this, EndTime);
+                    EndTime_IsEnabled = false;
+                }
 
+                if (NextEntryItemViewModel != null)
+                {
+                    if (!Registered)
+                    {
+                        NextEntryItemViewModel.StartTime = EndTime.ToString();
+                    }
                 }
             }
         }
@@ -81,6 +87,7 @@ namespace PlanilhaDoHugo.ViewModels
             {
                 _registered = value;
                 OnPropertyChanged(nameof(Registered));
+                EndTime_IsEnabled = !Registered;
             }
         }
 
@@ -99,20 +106,58 @@ namespace PlanilhaDoHugo.ViewModels
 
         public MainPageViewModel MainPageViewModel { get; private set; }
         public EntryItemViewModel NextEntryItemViewModel { get; private set; }
+        public EntryItemViewModel PriorEntryItemViewModel { get; private set; }
 
         public bool IsEndTimeDefined()
         {
             return ! EndTime.ToString().Equals(StartTime);
         }
 
-        public EntryItemViewModel(MainPageViewModel mainPageViewModel, string startTime, TimeSpan endTime, string task, string description, bool registered)
+        public EntryItemViewModel(MainPageViewModel mainPageViewModel, EntryItemViewModel priorEntryItemViewModel, string startTime, TimeSpan endTime, string task, string description, bool registered)
         {
             MainPageViewModel = mainPageViewModel;
+            PriorEntryItemViewModel = priorEntryItemViewModel;
             StartTime = startTime;
             EndTime = endTime;
             Task = task;
             Description = description;
             Registered = registered;
+            EndTime_IsEnabled = true;
+
+            EraseCommand = new Command(ExecuteEraseCommand, CanExecuteEraseCommand);
+        }
+
+        private bool CanExecuteEraseCommand(object arg)
+        {
+            // Never erase first record
+            if (PriorEntryItemViewModel == null)
+            {
+                return false;
+            }
+
+            // Don't allow remove if is registered
+            if (Registered)
+            {
+                return false;
+            }
+
+            // If next is defined don't allow to remove
+            if (NextEntryItemViewModel != null)
+            {
+                if (NextEntryItemViewModel.IsEndTimeDefined())
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void ExecuteEraseCommand(object obj)
+        {
+            PriorEntryItemViewModel.EndTime_IsEnabled = true;
+            PriorEntryItemViewModel.NextEntryItemViewModel = null;
+            MainPageViewModel.RemoveItem(this);
         }
 
         private void CalculateWorkedHours()
@@ -121,9 +166,19 @@ namespace PlanilhaDoHugo.ViewModels
             HoursWorked = tsHoursWorked.ToString();
         }
 
-        public bool EndTime_IsEnabled()
+        public bool EndTime_IsEnabled
         {
-            return false;
+            get
+            {
+                return _endTime_IsEnabled;
+            }
+            set
+            {
+                _endTime_IsEnabled = value;
+                OnPropertyChanged(nameof(EndTime_IsEnabled));
+            }
         }
+
+        public Command EraseCommand { get; private set; }
     }
 }

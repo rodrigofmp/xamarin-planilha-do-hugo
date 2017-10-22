@@ -42,12 +42,12 @@ namespace PlanilhaDoHugo.ViewModels
         private void AddEntryItem()
         {
             if (EntryList.Count == 0)
-                EntryList.Add(new EntryItemViewModel(this, ArrivalTime.ToString(), ArrivalTime, "10000", "Descrição da Tarefa", false));
+                EntryList.Add(new EntryItemViewModel(this, null, ArrivalTime.ToString(), ArrivalTime, "", "", false));
         }
 
-        public EntryItemViewModel AddEntryItemFromChild(TimeSpan newTime)
+        public EntryItemViewModel AddEntryItemFromChild(EntryItemViewModel priorEntryItemViewModel, TimeSpan newTime)
         {
-            EntryItemViewModel entryItemViewModel = new EntryItemViewModel(this, newTime.ToString(), newTime, "20000", "", false);
+            EntryItemViewModel entryItemViewModel = new EntryItemViewModel(this, priorEntryItemViewModel, newTime.ToString(), newTime, "", "", false);
             EntryList.Add(entryItemViewModel);
             return entryItemViewModel;
         }
@@ -105,6 +105,11 @@ namespace PlanilhaDoHugo.ViewModels
         {
             TimeSpan goHome = ArrivalTime + WorkTime + (LunchReturnTime - LunchBreakTime);            
             GoHomeTime = goHome.ToString();
+        }
+
+        public void RemoveItem(EntryItemViewModel item)
+        {
+            EntryList.Remove(item);
         }
 
     }

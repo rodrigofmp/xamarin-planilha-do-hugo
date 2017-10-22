@@ -16,7 +16,7 @@
             <Label Text="Previsão de Saída"/>
             <Label Text="{Binding GoHomeTime}"/>
             <Label Text="Tarefas executadas:"/>
-            <ListView ItemsSource="{Binding EntryList}" RowHeight="130">
+            <ListView ItemsSource="{Binding EntryList}" RowHeight="170">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -28,6 +28,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
                                     <RowDefinition Height="40"/>
                                     <RowDefinition Height="40"/>
                                     <RowDefinition Height="40"/>
@@ -44,6 +45,7 @@
                                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding HoursWorked}}"/>
                                 <Label Grid.Row="2" Grid.Column="2" Text="Registrado"/>
                                 <Switch Grid.Row="2" Grid.Column="3" IsToggled="{Binding Registered}"/>
+                                <Button Grid.Row="3" Grid.Column="0" Text="Apagar" Command="{Binding EraseCommand}"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
