@@ -1,5 +1,7 @@
 ﻿using PlanilhaDoHugo.Model;
 using System.Collections.ObjectModel;
+using Xamarin.Forms;
+using System;
 
 namespace PlanilhaDoHugo.ViewModels
 {
@@ -18,9 +20,18 @@ namespace PlanilhaDoHugo.ViewModels
             }
             set
             {
-                _arrivalTime = value;
-                OnPropertyChanged(nameof(ArrivalTime));
+                if (EntryList.Count == 0 && value > 0)
+                {
+                    _arrivalTime = value;
+                    OnPropertyChanged(nameof(ArrivalTime));
+                    AddEntryItem();
+                }
             }
+        }
+
+        private void AddEntryItem()
+        {
+            EntryList.Add(new EntryItem(ArrivalTime, 0, "", "", false));
         }
 
         public int LunchBreakTime {
@@ -65,5 +76,6 @@ namespace PlanilhaDoHugo.ViewModels
         {
             EntryList = new ObservableCollection<EntryItem>();
         }
+
     }
 }

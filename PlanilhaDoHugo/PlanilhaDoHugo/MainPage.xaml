@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PlanilhaDoHugo"
-             x:Class="PlanilhaDoHugo.MainPage">
+             x:Class="PlanilhaDoHugo.MainPage">    
+
 
     <StackLayout>
-        <Entry Text="{Binding ArrivalTime}"  Keyboard="Numeric" Placeholder="Hora de Chegada"/>
+        <local:TimeEntry Text="{Binding ArrivalTime}" Keyboard="Numeric" Placeholder="Hora de Chegada"/>
         <Entry Text="{Binding LunchBreakTime}"  Keyboard="Numeric" Placeholder="Saída para Almoço"/>
         <Entry Text="{Binding LunchReturnTime}"  Keyboard="Numeric" Placeholder="Retorno do Almoço"/>
         <Label Text="{Binding GoHomeTime}"/>
