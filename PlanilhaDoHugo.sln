@@ -15,6 +15,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		PlanilhaDoHugo\PlanilhaDoHugo\PlanilhaDoHugo.projitems*{56110689-0a71-4087-99e3-7798bf6fed01}*SharedItemsImports = 4
 		PlanilhaDoHugo\PlanilhaDoHugo\PlanilhaDoHugo.projitems*{97e8fcd8-f499-4122-9ae8-9e5e2e6d6cf7}*SharedItemsImports = 13
+		PlanilhaDoHugo\PlanilhaDoHugo\PlanilhaDoHugo.projitems*{9ea74bb3-2106-4b5b-9c23-9643fe6c8bdd}*SharedItemsImports = 4
 		PlanilhaDoHugo\PlanilhaDoHugo\PlanilhaDoHugo.projitems*{b96f90ca-459f-4971-9d08-5e3ed743177f}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

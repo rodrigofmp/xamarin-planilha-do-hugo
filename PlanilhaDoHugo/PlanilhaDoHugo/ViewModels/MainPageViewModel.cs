@@ -2,39 +2,52 @@
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using System;
+using PlanilhaDoHugo.Utils;
 
 namespace PlanilhaDoHugo.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private int _arrivalTime;
-        private int _lunchBreakTime;
-        private int _lunchReturnTime;
-        private int _goHomeTime;
+        private TimeSpan _workTime;
+        private TimeSpan _arrivalTime;
+        private TimeSpan _lunchBreakTime;
+        private TimeSpan _lunchReturnTime;
+        private string _goHomeTime;
 
-
-        public int ArrivalTime {
+        public TimeSpan WorkTime
+        {
+            get
+            {
+                return _workTime;
+            }
+            set
+            {
+                _workTime = value;
+                OnPropertyChanged(nameof(WorkTime));
+                CalculateGoHomeTime();
+            }
+        }
+        
+        public TimeSpan ArrivalTime {
             get
             {
                 return _arrivalTime;
             }
             set
             {
-                if (EntryList.Count == 0 && value > 0)
-                {
-                    _arrivalTime = value;
-                    OnPropertyChanged(nameof(ArrivalTime));
-                    AddEntryItem();
-                }
+                _arrivalTime = value;
+                OnPropertyChanged(nameof(ArrivalTime));
+                CalculateGoHomeTime();
+                AddEntryItem();
             }
         }
 
         private void AddEntryItem()
         {
-            EntryList.Add(new EntryItem(ArrivalTime, 0, "", "", false));
+            EntryList.Add(new EntryItem(ArrivalTime, new TimeSpan(0, 0, 0), "", "", false));
         }
 
-        public int LunchBreakTime {
+        public TimeSpan LunchBreakTime {
             get
             {
                 return _lunchBreakTime;
@@ -43,22 +56,24 @@ namespace PlanilhaDoHugo.ViewModels
             {
                 _lunchBreakTime = value;
                 OnPropertyChanged(nameof(LunchBreakTime));
+                CalculateGoHomeTime();
             }
         }
 
-        public int LunchReturnTime {
+        public TimeSpan LunchReturnTime {
             get
             {
                 return _lunchReturnTime;
             }
             set
-            {
+            { 
                 _lunchReturnTime = value;
                 OnPropertyChanged(nameof(LunchReturnTime));
+                CalculateGoHomeTime();
             }
         }
 
-        public int GoHomeTime {
+        public string GoHomeTime {
             get
             {
                 return _goHomeTime;
@@ -75,6 +90,16 @@ namespace PlanilhaDoHugo.ViewModels
         public MainPageViewModel()
         {
             EntryList = new ObservableCollection<EntryItem>();
+            WorkTime = new TimeSpan(8, 30, 00);
+            ArrivalTime = new TimeSpan(8, 00, 00);
+            LunchBreakTime = new TimeSpan(12, 00, 00);
+            LunchReturnTime = new TimeSpan(13, 30, 00);
+        }
+        
+        private void CalculateGoHomeTime()
+        {
+            TimeSpan goHome = ArrivalTime + WorkTime + (LunchReturnTime - LunchBreakTime);            
+            GoHomeTime = goHome.ToString();
         }
 
     }

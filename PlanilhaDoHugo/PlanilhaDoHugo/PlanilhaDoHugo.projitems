@@ -16,7 +16,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\EntryItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\DateTimeUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EntryItemCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimeEntry.cs" />
   </ItemGroup>
@@ -29,8 +31,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)CustomRenderer\" />
   </ItemGroup>
 </Project>

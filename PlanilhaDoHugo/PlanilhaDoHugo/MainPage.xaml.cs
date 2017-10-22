@@ -12,5 +12,6 @@ namespace PlanilhaDoHugo
             BindingContext = new MainPageViewModel();
 
         }
-	}
+
+    }
 }

@@ -4,11 +4,15 @@
              xmlns:local="clr-namespace:PlanilhaDoHugo"
              x:Class="PlanilhaDoHugo.MainPage">    
 
-
     <StackLayout>
-        <local:TimeEntry Text="{Binding ArrivalTime}" Keyboard="Numeric" Placeholder="Hora de Chegada"/>
-        <Entry Text="{Binding LunchBreakTime}"  Keyboard="Numeric" Placeholder="Saída para Almoço"/>
-        <Entry Text="{Binding LunchReturnTime}"  Keyboard="Numeric" Placeholder="Retorno do Almoço"/>
+        <Label Text="Expediente"/>
+        <TimePicker Time="{Binding WorkTime}"/>
+        <Label Text="Hora de Chegada"/>
+        <TimePicker Time="{Binding ArrivalTime}"/>
+        <Label Text="Saída para Almoço"/>
+        <TimePicker Time="{Binding LunchBreakTime}"/>
+        <Label Text="Retorno do Almoço"/>
+        <TimePicker Time="{Binding LunchReturnTime}"/>
         <Label Text="{Binding GoHomeTime}"/>
         <ListView ItemsSource="{Binding EntryList}">
             <ListView.ItemTemplate>
@@ -28,9 +32,9 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding StartTime}"/>
-                            <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding EndTime}"/>
-                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="{Binding Task}"/>
-                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Description}"/>
+                            <Entry Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding EndTime}"/>
+                            <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="{Binding Task}"/>
+                            <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Description}"/>
                             <Label Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="1" Text="{Binding Registered}"/>
                         </Grid>
                     </ViewCell>

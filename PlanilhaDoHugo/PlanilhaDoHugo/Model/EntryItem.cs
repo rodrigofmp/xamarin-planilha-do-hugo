@@ -6,13 +6,13 @@ namespace PlanilhaDoHugo.Model
 {
     public class EntryItem
     {
-        public int StartTime { get; }
-        public int EndTime { get; }
+        public TimeSpan StartTime { get; }
+        public TimeSpan EndTime { get; }
         public string Task { get; }
         public string Description { get; }
         public bool Registered { get; }
 
-        public EntryItem(int startTime, int endTime, string task, string description, bool registered)
+        public EntryItem(TimeSpan startTime, TimeSpan endTime, string task, string description, bool registered)
         {
             StartTime = startTime;
             EndTime = endTime;
