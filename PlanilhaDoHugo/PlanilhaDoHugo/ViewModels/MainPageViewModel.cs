@@ -1,8 +1,5 @@
-﻿using PlanilhaDoHugo.Model;
-using System.Collections.ObjectModel;
-using Xamarin.Forms;
+﻿using System.Collections.ObjectModel;
 using System;
-using PlanilhaDoHugo.Utils;
 
 namespace PlanilhaDoHugo.ViewModels
 {
@@ -44,7 +41,15 @@ namespace PlanilhaDoHugo.ViewModels
 
         private void AddEntryItem()
         {
-            EntryList.Add(new EntryItem(ArrivalTime, new TimeSpan(0, 0, 0), "", "", false));
+            if (EntryList.Count == 0)
+                EntryList.Add(new EntryItemViewModel(this, ArrivalTime.ToString(), ArrivalTime, "10000", "Descrição da Tarefa", false));
+        }
+
+        public EntryItemViewModel AddEntryItemFromChild(TimeSpan newTime)
+        {
+            EntryItemViewModel entryItemViewModel = new EntryItemViewModel(this, newTime.ToString(), newTime, "20000", "", false);
+            EntryList.Add(entryItemViewModel);
+            return entryItemViewModel;
         }
 
         public TimeSpan LunchBreakTime {
@@ -85,11 +90,11 @@ namespace PlanilhaDoHugo.ViewModels
             }
         }
 
-        public ObservableCollection<EntryItem> EntryList { get; private set; }
+        public ObservableCollection<EntryItemViewModel> EntryList { get; private set; }
 
         public MainPageViewModel()
         {
-            EntryList = new ObservableCollection<EntryItem>();
+            EntryList = new ObservableCollection<EntryItemViewModel>();
             WorkTime = new TimeSpan(8, 30, 00);
             ArrivalTime = new TimeSpan(8, 00, 00);
             LunchBreakTime = new TimeSpan(12, 00, 00);

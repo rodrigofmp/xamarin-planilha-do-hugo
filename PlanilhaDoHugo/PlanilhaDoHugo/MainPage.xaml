@@ -2,45 +2,53 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PlanilhaDoHugo"
-             x:Class="PlanilhaDoHugo.MainPage">    
-
-    <StackLayout>
-        <Label Text="Expediente"/>
-        <TimePicker Time="{Binding WorkTime}"/>
-        <Label Text="Hora de Chegada"/>
-        <TimePicker Time="{Binding ArrivalTime}"/>
-        <Label Text="Saída para Almoço"/>
-        <TimePicker Time="{Binding LunchBreakTime}"/>
-        <Label Text="Retorno do Almoço"/>
-        <TimePicker Time="{Binding LunchReturnTime}"/>
-        <Label Text="{Binding GoHomeTime}"/>
-        <ListView ItemsSource="{Binding EntryList}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding StartTime}"/>
-                            <Entry Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Text="{Binding EndTime}"/>
-                            <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Text="{Binding Task}"/>
-                            <Entry Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding Description}"/>
-                            <Label Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="1" Text="{Binding Registered}"/>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
-
+             x:Class="PlanilhaDoHugo.MainPage">
+    <ScrollView>
+        <StackLayout VerticalOptions="Center">
+            <Label Text="Expediente"/>
+            <TimePicker Time="{Binding WorkTime}"/>
+            <Label Text="Hora de Chegada"/>
+            <TimePicker Time="{Binding ArrivalTime}"/>
+            <Label Text="Saída para Almoço"/>
+            <TimePicker Time="{Binding LunchBreakTime}"/>
+            <Label Text="Retorno do Almoço"/>
+            <TimePicker Time="{Binding LunchReturnTime}"/>
+            <Label Text="Previsão de Saída"/>
+            <Label Text="{Binding GoHomeTime}"/>
+            <Label Text="Tarefas executadas:"/>
+            <ListView ItemsSource="{Binding EntryList}" RowHeight="130">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="Início"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding StartTime}"/>
+                                <Label Grid.Row="0" Grid.Column="2" Text="Fim"/>
+                                <TimePicker Grid.Row="0" Grid.Column="3" Time="{Binding EndTime}" IsEnabled="{Binding EndTime_IsEnabled}"/>
+                                <Label Grid.Row="1" Grid.Column="0" Text="Tarefa"/>
+                                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Task}"/>
+                                <Label Grid.Row="1" Grid.Column="2" Text="Descrição"/>
+                                <Entry Grid.Row="1" Grid.Column="3" Text="{Binding Description}"/>
+                                <Label Grid.Row="2" Grid.Column="0" Text="Horas Trabalhadas"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding HoursWorked}}"/>
+                                <Label Grid.Row="2" Grid.Column="2" Text="Registrado"/>
+                                <Switch Grid.Row="2" Grid.Column="3" IsToggled="{Binding Registered}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
